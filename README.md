@@ -1,8 +1,8 @@
 # Xamarin Android Binding Library
-Xamarin Binding Library for [Armcha SpaceNavigationView](https://github.com/armcha/Space-Navigation-View)
+Xamarin Binding Library for [Zhihu Matisse](https://github.com/zhihu/Matisse)
 
 ```
-Install-Package Naxam.Armcha.SpaceNavigationView
+Install-Package Naxam.Zhihu.Matisse.Droid
 ```
 
 # Matisse

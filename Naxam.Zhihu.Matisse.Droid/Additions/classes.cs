@@ -1,22 +1,18 @@
-﻿using Android.Support.V4.App;
-
-namespace Com.Zhihu.Matisse.Internal
+﻿namespace Com.Zhihu.Matisse.Internal.Model
 {
-    namespace Model
+    public partial class AlbumCollection
     {
-        public partial class AlbumPhotoCollection
+        public void OnLoadFinished(Android.Support.V4.Content.Loader loader, Java.Lang.Object data)
         {
-            public void OnLoadFinished(Android.Support.V4.Content.Loader loader, Java.Lang.Object data)
-            {
-                OnLoadFinished(loader, data as Android.Database.ICursor);
-            }
+            OnLoadFinished(loader, data as Android.Database.ICursor);
         }
-        public partial class DevicePhotoAlbumCollection
+    }
+
+    public partial class AlbumMediaCollection
+    {
+        public void OnLoadFinished(Android.Support.V4.Content.Loader loader, Java.Lang.Object data)
         {
-            public void OnLoadFinished(Android.Support.V4.Content.Loader loader, Java.Lang.Object data)
-            {
-                OnLoadFinished(loader, data as Android.Database.ICursor);
-            }
+            OnLoadFinished(loader, data as Android.Database.ICursor);
         }
     }
 }

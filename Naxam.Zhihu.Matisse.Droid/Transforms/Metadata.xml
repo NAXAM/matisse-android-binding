@@ -8,4 +8,7 @@
   -->
   <attr path="/api/package[@name='com.zhihu.matisse.internal.ui.adapter']/class[@name='RecyclerViewCursorAdapter']/method[@name='onBindViewHolder']/parameter[@type='VH']" name="type">Android.Support.V7.Widget.RecyclerView.ViewHolder</attr>
   <attr path="/api/package[@name='com.zhihu.matisse.internal.ui.adapter']/class[@name='AlbumPhotosAdapter']/method[@name='getItemViewType' and count(parameter)=2 and parameter[1][@type='int'] and parameter[2][@type='android.database.Cursor']]" name="visibility">protected</attr>
+  <attr path="/api/package[@name='com.zhihu.matisse.internal.ui.adapter']/class[@name='AlbumMediaAdapter']/method[@name='getItemViewType' and count(parameter)=2 and parameter[1][@type='int'] and parameter[2][@type='android.database.Cursor']]" name="visibility">protected</attr>
+  
+  <remove-node path="/api/package[@name='com.zhihu.matisse.internal.ui.adapter']/interface[@name='PreviewPagerAdapter.OnPrimaryItemSetListener']" />
 </metadata>

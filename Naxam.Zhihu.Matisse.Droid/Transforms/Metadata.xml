@@ -6,4 +6,6 @@
   This sample removes the method: android.support.v4.content.CursorLoader.loadInBackground:
   <remove-node path="/api/package[@name='android.support.v4.content']/class[@name='CursorLoader']/method[@name='loadInBackground']" />
   -->
+  <attr path="/api/package[@name='com.zhihu.matisse.internal.ui.adapter']/class[@name='RecyclerViewCursorAdapter']/method[@name='onBindViewHolder']/parameter[@type='VH']" name="type">Android.Support.V7.Widget.RecyclerView.ViewHolder</attr>
+  <attr path="/api/package[@name='com.zhihu.matisse.internal.ui.adapter']/class[@name='AlbumPhotosAdapter']/method[@name='getItemViewType' and count(parameter)=2 and parameter[1][@type='int'] and parameter[2][@type='android.database.Cursor']]" name="visibility">protected</attr>
 </metadata>

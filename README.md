@@ -5,21 +5,80 @@ Xamarin Binding Library for [Armcha SpaceNavigationView](https://github.com/armc
 Install-Package Naxam.Armcha.SpaceNavigationView
 ```
 
-## How to use
+# Matisse
+Matisse is a well-designed local image and video selector for Android. You can  
+- Use it in Activity or Fragment
+- Select images including JPEG, PNG, GIF and videos including MPEG, MP4 
+- Apply different themes, including two built-in themes and custom themes
+- Different image loaders
+- Define custom filter rules
+- More to find out yourself
 
-In your AXML
-```xml
-<com.luseen.spacenavigation.SpaceNavigationView
-        android:id="@+id/space"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom" /> 
+| Zhihu Style                    | Dracula Style                     | Preview                          |
+|:------------------------------:|:---------------------------------:|:--------------------------------:|
+|![](image/screenshot_zhihu.png) | ![](image/screenshot_dracula.png) | ![](image/screenshot_preview.png)|
+
+## ProGuard
+If you use [Glide](https://github.com/bumptech/glide) as your image engine, you may need the following rules:
+```pro
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+
+# for DexGuard only
+-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+```
+If you use [Picasso](https://github.com/square/picasso) as your image engine, you may need the following rules:
+```pro
+-dontwarn com.squareup.okhttp.**
 ```
 
-In your Activity
-```C#
-SpaceNavigationView spaceNavigationView = FindViewById<SpaceNavigationView>(Resource.Id.space);
-spaceNavigationView.InitWithSaveInstanceState(savedInstanceState);
-spaceNavigationView.AddSpaceItem(new SpaceItem("HOME", Resource.Mipmap.Icon));
-spaceNavigationView.AddSpaceItem(new SpaceItem("SEARCH", Resource.Mipmap.Icon));
+## How do I use Matisse?
+#### Permission
+The library requires two permissions:
+- `android.permission.READ_EXTERNAL_STORAGE`
+- `android.permission.WRITE_EXTERNAL_STORAGE`
+
+So if you are targeting Android 6.0+, you need to handle runtime permission request before next step.
+
+#### Simple usage snippet
+------
+Start `MatisseActivity` from current `Activity` or `Fragment`:
+
+```java
+Matisse.from(MainActivity.this)
+        .choose(MimeType.allOf())
+        .countable(true)
+        .maxSelectable(9)
+        .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+        .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
+        .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+        .thumbnailScale(0.85f)
+        .imageEngine(new GlideEngine())
+        .forResult(REQUEST_CODE_CHOOSE);
+```
+ 
+#### Themes
+There are two built-in themes you can use to start `MatisseActivity`:
+- `R.style.Matisse_Zhihu` (light mode)
+- `R.style.Matisse_Dracula` (dark mode)  
+
+And Also you can define your own theme as you wish.
+
+#### Receive Result
+In `onActivityResult()` callback of the starting `Activity` or `Fragment`:
+
+```java
+List<Uri> mSelected;
+
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
+        mSelected = Matisse.obtainResult(data);
+        Log.d("Matisse", "mSelected: " + mSelected);
+    }
+}
 ```

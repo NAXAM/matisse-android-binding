@@ -13,8 +13,6 @@ namespace MatisseQs
         private int mMinHeight;
         private int mMaxSize;
 
-
-
         public GifSizeFilter(int minWidth, int minHeight, int maxSizeInBytes)
         {
             mMinWidth = minWidth;
@@ -36,8 +34,8 @@ namespace MatisseQs
             var size = PhotoMetadataUtils.GetBitmapBound(p0.ContentResolver, p1.ContentUri);
 
             if (size.X < mMinWidth || size.Y < mMinHeight || p1.Size > mMaxSize) {
-                //var msg = p0.GetString(Resource.String.error_gif, mMinWidth, PhotoMetadataUtils.GetSizeInMB(mMaxSize));
-                //return new IncapableCause(IncapableCause.Dialog, msg);
+                var msg = p0.GetString(Resource.String.error_gif, mMinWidth, PhotoMetadataUtils.GetSizeInMB(mMaxSize));
+                return new IncapableCause(IncapableCause.Dialog, msg);
             }
 
             return null;
